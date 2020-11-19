@@ -2,13 +2,8 @@ from functools import reduce
 from copy import copy
 
 
-def AllSame(items):
-    last = items[0]
-    for item in items:
-        if last != item:
-            return False
-
-    return last
+__all__ = ["Board", "AllSame", "Transform", "Right90", "Transpose",
+           "ATranspose"]
 
 
 class Board:
@@ -68,4 +63,34 @@ class Board:
                 s.append("-+-+-")
 
         return "\n".join(s)
+
+
+def AllSame(items):
+    last = items[0]
+    for item in items:
+        if last != item:
+            return False
+
+    return last
+
+
+def Transform(board, cb, cw, rb, rw):
+    new_board = Board.GetNewBoard()
+    for r in range(3):
+        for c in range(3):
+            new_board[cb + cw * c][rb + rw * r] = board[r][c]
+
+    return new_board
+
+
+def Right90(board):
+    return Transform(board, 0, 1, 2, -1)
+
+
+def Transpose(board):
+    return Transform(board, 0, 1, 0, 1)
+
+
+def ATranspose(board):
+    return Transform(board, 2, -1, 2, -1)
 
