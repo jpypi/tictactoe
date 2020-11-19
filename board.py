@@ -50,6 +50,9 @@ class Board:
         row, col = position
         if self._state[row][col] is None:
             self._state[row][col] = player_key
+            return True
+        else:
+            return False
 
     def __str__(self, mapping=None):
         if mapping is None:
